@@ -40,27 +40,27 @@ Commands
 Encode
 
 Standard (quote is kept as %27):
-
+```
 urltool enc "' UNION SELECT @@version, NULL#"
 # -> %27+UNION+SELECT+%40%40version%2C+NULL%23
-
+```
 
 Pretty (keeps @@ and , readable):
-
+```
 urltool enc "' UNION SELECT @@version, NULL#" --pretty
 # -> %27+UNION+SELECT+@@version,+NULL%23
-
+```
 
 WSA-style (converts leading %27+ to +):
-
+```
 urltool enc "' UNION SELECT @@version, NULL#" --pretty --wsaplus
 # -> +UNION+SELECT+@@version,+NULL%23
 
-
+```
 Use %20 for spaces instead of +:
-
+```
 urltool enc "' UNION SELECT @@version, NULL#" --percent20
-
+```
 
 Custom safe chars (override --pretty):
 
