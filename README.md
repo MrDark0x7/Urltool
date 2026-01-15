@@ -63,17 +63,20 @@ urltool enc "' UNION SELECT @@version, NULL#" --percent20
 ```
 
 Custom safe chars (override --pretty):
-
+```
 urltool enc "' UNION SELECT @@version, NULL#" --safe "@,()"
-
+```
 Decode
+```
 urltool dec "%27+UNION+SELECT+@@version,+NULL%23"
-
+```
 
 Don’t treat + as space:
-
+```
 urltool dec "%27+UNION+SELECT+@@version,+NULL%23" --no-plus
-
+```
 Build full URL
+```
 urltool url "https://target.tld/filter" category "' UNION SELECT @@version, NULL#" --pretty
 # -> https://target.tld/filter?category=%27+UNION+SELECT+@@version,+NULL%23
+```
