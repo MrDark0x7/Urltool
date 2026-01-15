@@ -18,14 +18,13 @@ It supports:
 ## Install
 
 ### Option A — Run locally
-```bash
+
 chmod +x urltool.py
 ./urltool.py -h
-Option B — Install system-wide (recommended: /usr/local/bin)
+
+###Option B — Install system-wide (recommended: /usr/local/bin)
 From the directory containing urltool.py:
 
-bash
-Copy code
 chmod +x urltool.py
 sudo ln -sf "$(pwd)/urltool.py" /usr/local/bin/urltool
 urltool -h
