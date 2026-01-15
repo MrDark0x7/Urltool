@@ -1,4 +1,4 @@
-# urltool 🧰 — URL Query Encoder/Decoder (WSA-friendly)
+# Urltool 🧰 — URL Query Encoder/Decoder (WSA-friendly)
 
 A tiny CLI helper to **URL-encode / decode** payloads for query strings — built for quick copy/paste workflows in CTFs and Web Security Academy labs.
 
