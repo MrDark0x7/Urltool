@@ -14,6 +14,7 @@ It supports:
 > Encoding it as `%23` ensures it **reaches the backend**.
 
 ---
+<img width="633" height="217" alt="image" src="https://github.com/user-attachments/assets/5b44ad0e-affc-466a-91b7-9adbacf7b6d1" />
 
 ## Install
 
